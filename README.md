@@ -1,2 +1,2 @@
 # Mathematics_Experiment
-数学实验课部分代码。
+数学实验课部分代码。具体代码分作业次数放在不同的branch里面。
