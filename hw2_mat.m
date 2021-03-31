@@ -21,12 +21,13 @@ x_0=[1;1;1];% 初值，也用作迭代前的值
 x_1=[0;0;0];% 迭代后的值
 x_err_jakob=zeros(3,n);%误差
 
+U=-triu(A,1);
+L=-tril(A,-1);
+D=diag(diag(A));
+f_j=D\b;
+B_j=D\(L+U);
 for i=1:n
-    U=triu(A,1);
-    L=tril(A,-1);
-    D=diag(diag(A));
-    f_j=D\b;
-    B_j=D\(L+U);
+    
     x_1=B_j*x_0+f_j;
     x_0=x_1;
     x_err_jakob(:,i)=abs(x-x_1);
@@ -38,13 +39,13 @@ plot(1:n,x_err_jakob(:,:));
 x_1=[0;0;0];% 迭代后的值
 x_err_gauss=zeros(3,n);%误差
 
+U=-triu(A,1);
+L=-tril(A,-1);
+D=diag(diag(A));
+f_gs=(D-L)\b;
+B_gs=(D-L)\U;
 diag_zeros=-(ones(length(b))-eye(length(b)));
 for i=1:n
-    U=-triu(A,1);
-    L=-tril(A,-1);
-    D=diag(diag(A));
-    f_gs=(D-L)\b;
-    B_gs=(D-L)\U;
     x_1=B_gs*x_0+f_gs;
     x_0=x_1;
     x_err_gauss(:,i)=abs(x-x_1);
